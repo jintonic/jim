@@ -2,6 +2,8 @@
 *.slo
 *.lo
 *.o
+*.d
+*.d.*
 
 # Compiled Dynamic libraries
 *.so
@@ -11,3 +13,5 @@
 *.lai
 *.la
 *.a
+
+tags
