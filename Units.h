@@ -21,11 +21,14 @@ namespace CUM {
   static const double kilometer3 = kilometer*kilometer*kilometer;
 
   static const double parsec = 3.0856775807e+16*meter;
+  static const double astronomical_unit = 149597870700000.*millimeter;
+  static const double light_year = 9460730472580800000.*millimeter;
 
   static const double micrometer = 1.e-6 *meter;             
   static const double  nanometer = 1.e-9 *meter;
   static const double  angstrom  = 1.e-10*meter;
   static const double  fermi     = 1.e-15*meter;
+  static const double     fm     = 1.e-15*meter;
 
   static const double      barn = 1.e-28*meter2;
   static const double millibarn = 1.e-3 *barn;
@@ -55,6 +58,9 @@ namespace CUM {
 
   static const double pc = parsec;
   static const double kpc = 1e3*parsec;
+  static const double AU = astronomical_unit;
+  static const double ly = light_year;
+  static const double lightyear = light_year;
 
   //
   // Angle

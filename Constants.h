@@ -88,7 +88,8 @@ static const double kGasThreshold   = 10.*mg/cm3;
 //
 static const double universe_mean_density = 1.e-25*g/cm3;
 
-static const double GF = 1.166364e-5/GeV/GeV; // Fermi constant
+static const double fermi_const = 1.166364e-5/GeV/GeV;
+static const double GF = fermi_const;
 
 } // namespace CUM
 
