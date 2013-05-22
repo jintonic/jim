@@ -1,6 +1,6 @@
 PREFIX=$(HOME)
 
-LIBNAME = CUM
+LIBNAME = JIM
 LIBRARY = lib$(LIBNAME).so
 
 CXX      = g++
@@ -9,7 +9,7 @@ CXXFLAGS = $(OPT2) -Wall -fPIC
 SOFLAGS  = -shared
 
 SOURCES = $(wildcard *.cc)
-HEADERS = $(wildcard *.h)
+HEADERS = $(SOURCES:.cc=.h)
 OBJECTS = $(SOURCES:.cc=.o)
 DEPFILE = $(SOURCES:.cc=.d)
 
@@ -17,7 +17,7 @@ DEPFILE = $(SOURCES:.cc=.d)
 all: $(LIBRARY)
 
 # include *.d files, which are makefiles defining dependencies between files
-ifeq ($(filter install clean tags, $(MAKECMDGOALS)),)
+ifeq ($(filter uninstall clean tags, $(MAKECMDGOALS)),)
   -include $(DEPFILE)
 endif
 
@@ -47,7 +47,8 @@ clean:
 tags:
 	ctags --c-kinds=+p $(HEADERS) $(SOURCES)
 
-install:all
+install: all
+	@echo "PREFIX=$(PREFIX)"
 	@echo -n "checking if $(PREFIX) exists..."
 	@if [ -d $(PREFIX) ]; then \
 	  echo "yes."; \
