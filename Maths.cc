@@ -1,5 +1,4 @@
 #include "Maths.h"
-#include "Constants.h"
 
 #include <cmath>
 #include <iostream>
@@ -8,7 +7,7 @@ using namespace std;
 //______________________________________________________________________________
 //
 
-double CUM::SimpleFall(double *x, double *parameter)
+double JIM::SimpleFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -23,7 +22,7 @@ double CUM::SimpleFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SmearedFall(double *x, double *parameter)
+double JIM::SmearedFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -40,7 +39,7 @@ double CUM::SmearedFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SmearedDoubleFall(double *x, double *parameter)
+double JIM::SmearedDoubleFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -62,7 +61,7 @@ double CUM::SmearedDoubleFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SmearedTripleFall(double *x, double *parameter)
+double JIM::SmearedTripleFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -90,7 +89,7 @@ double CUM::SmearedTripleFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SimpleRise(double *x, double *parameter)
+double JIM::SimpleRise(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -105,7 +104,7 @@ double CUM::SimpleRise(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SmearedRise(double *x, double *parameter)
+double JIM::SmearedRise(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -123,7 +122,7 @@ double CUM::SmearedRise(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SimpleRiseAndFall(double *x, double *parameter)
+double JIM::SimpleRiseAndFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts = parameter[0];
@@ -141,7 +140,7 @@ double CUM::SimpleRiseAndFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SmearedRiseAndFall(double *x, double *parameter)
+double JIM::SmearedRiseAndFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts   = parameter[0];
@@ -162,7 +161,7 @@ double CUM::SmearedRiseAndFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::SmearedRiseAndDoubleFall(double *x, double *parameter)
+double JIM::SmearedRiseAndDoubleFall(double *x, double *parameter)
 {
    double t = x[0];
    double nevts = parameter[0];
@@ -190,7 +189,7 @@ double CUM::SmearedRiseAndDoubleFall(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-double CUM::ContinuousPoisson(double *x, double *parameter)
+double JIM::ContinuousPoisson(double *x, double *parameter)
 {
    double normal = parameter[0];
    double binWidth = parameter[1];
@@ -202,13 +201,13 @@ double CUM::ContinuousPoisson(double *x, double *parameter)
 //______________________________________________________________________________
 //
 
-void CUM::Cartesian2Geographic(double x, double y, double z, // input
+void JIM::Cartesian2Geographic(double x, double y, double z, // input
       double *longitude, double *latitude) // output
 {
    double r = sqrt(x*x+y*y+z*z);
-   *latitude = pi/2.-acos(z/r);
+   *latitude = M_PI/2.-acos(z/r);
 
-   if (abs(*latitude)==pi/2.0) {
+   if (abs(*latitude)==M_PI/2.0) {
       *longitude = 0;
    } else if (y>=0) {
       *longitude = acos(x/sqrt(x*x+y*y));
@@ -220,7 +219,7 @@ void CUM::Cartesian2Geographic(double x, double y, double z, // input
 //______________________________________________________________________________
 //
 
-void CUM::Geographic2Mollweide(double *x, double *y)
+void JIM::Geographic2Mollweide(double *x, double *y)
 {
    double latitude = *y;
    double longitude = *x;
@@ -229,7 +228,7 @@ void CUM::Geographic2Mollweide(double *x, double *y)
    bool isPrecise = false;
    double dt, theta = 0;
    for (int i=0; i<100; i++) {
-      dt = -(theta + sin(theta) - pi*sin(latitude))/(cos(theta) + 1);
+      dt = -(theta + sin(theta) - M_PI*sin(latitude))/(cos(theta) + 1);
       theta += dt;
 
       if (abs(dt)<=1e-12) { 
@@ -240,16 +239,16 @@ void CUM::Geographic2Mollweide(double *x, double *y)
    if (isPrecise==false) cout<<"Newton's method failed!"<<endl;
    theta/=2.;
 
-   *x = 2.*sqrt(2.)*longitude/pi*cos(theta);
+   *x = 2.*sqrt(2.)*longitude/M_PI*cos(theta);
    *y = sqrt(2.)*sin(theta);
 }
 
 //______________________________________________________________________________
 //
 
-void CUM::Geographic2AzimuthalEquidistant(
+void JIM::Geographic2AzimuthalEquidistant(
       double latitude, double longitude, double *x, double *y)
 {
-   *x =  (latitude+pi/2.)*cos(longitude);
-   *y = -(latitude+pi/2.)*sin(longitude);
+   *x =  (latitude+M_PI/2.)*cos(longitude);
+   *y = -(latitude+M_PI/2.)*sin(longitude);
 }

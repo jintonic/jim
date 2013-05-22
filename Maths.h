@@ -1,7 +1,7 @@
-#ifndef MATH_H
-#define MATH_H
+#ifndef MATHS_H
+#define MATHS_H
 
-namespace CUM {
+namespace JIM {
    /**
     * Step function followed by exponential decay.
     *   - @par parameter[0]: normalization factor
@@ -65,6 +65,6 @@ namespace CUM {
     */
    void Geographic2AzimuthalEquidistant(
          double latitude, double longitude, double *x, double *y);
-};
+} // namespace JIM
 
-#endif //MATH_H
+#endif //MATHS_H
