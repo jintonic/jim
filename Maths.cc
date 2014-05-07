@@ -252,3 +252,20 @@ void JIM::Geographic2AzimuthalEquidistant(
    *x =  (latitude+M_PI/2.)*cos(longitude);
    *y = -(latitude+M_PI/2.)*sin(longitude);
 }
+
+//______________________________________________________________________________
+//
+
+double JIM::DewPoint(double *x, double *parameter)
+{
+   double rh = x[0];
+   double t  = parameter[0];
+
+   if (rh>100 || rh<=0) {
+      cout<<"relative humidity must be within (0,100]%, return 999"<<endl;
+      return 999.;
+   }
+
+   double b = (log(rh/100) + ((17.27*t) / (237.3+t))) / 17.27;
+   return 237.3*b/(1-b);
+}

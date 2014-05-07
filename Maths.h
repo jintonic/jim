@@ -65,6 +65,15 @@ namespace JIM {
     */
    void Geographic2AzimuthalEquidistant(
          double latitude, double longitude, double *x, double *y);
+
+   /**
+    * Convert relative humidity to dew point in Celsius.
+    *    - @par x[0]: relative humidity in %
+    *    - @par parameter[0]: temperature
+    * ref: http://ag.arizona.edu/azmet/dewpoint.html
+    */
+   double DewPoint(double *x, double *parameter);
+
 } // namespace JIM
 
 #endif //MATHS_H
