@@ -5,8 +5,11 @@ LIBRARY = lib$(LIBNAME).so
 
 CXX      = g++
 OPT2     = -O3
-CXXFLAGS = $(OPT2) -Wall -fPIC
+CXXFLAGS = $(OPT2) -Wall -fPIC -I$(PREFIX)/include
 SOFLAGS  = -shared
+
+SRCS = $(wildcard *.C)
+EXES = $(SRCS:.C=.exe)
 
 SOURCES = $(wildcard *.cc)
 HEADERS = $(SOURCES:.cc=.h)
@@ -14,7 +17,7 @@ OBJECTS = $(SOURCES:.cc=.o)
 DEPFILE = $(SOURCES:.cc=.d)
 
 
-all: $(LIBRARY)
+all: $(EXES)
 
 # include *.d files, which are makefiles defining dependencies between files
 ifeq ($(filter uninstall clean tags, $(MAKECMDGOALS)),)
@@ -47,7 +50,7 @@ clean:
 tags:
 	ctags --c-kinds=+p $(HEADERS) $(SOURCES)
 
-install: all
+install: $(LIBRARY)
 	@echo "PREFIX=$(PREFIX)"
 	@echo -n "checking if $(PREFIX) exists..."
 	@if [ -d $(PREFIX) ]; then \
@@ -83,5 +86,8 @@ install: all
 uninstall:
 	$(RM) $(PREFIX)/lib/$(LIBRARY)
 	$(RM) -r $(PREFIX)/include/$(LIBNAME)
+
+$(EXES):%.exe:%.C install
+	$(CXX) $< $(CXXFLAGS) -L. -l$(LIBNAME) $(LIBS) -o $@
 
 .PHONY: all tags clean install uninstall
